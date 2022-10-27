@@ -11,6 +11,7 @@ type OrderFormPropsType = {
 }
 const OrderForm = (props:OrderFormPropsType) => {
 
+
   const { register, handleSubmit, formState: { errors,isSubmitting,isDirty } ,control} = useForm<Order>({
     defaultValues: props.order
 
@@ -19,7 +20,6 @@ const OrderForm = (props:OrderFormPropsType) => {
     control: control,
     name: "rows"
   })
-
 
     const onError = (errors: any) => {
         console.log("error",errors)
@@ -107,7 +107,7 @@ const OrderForm = (props:OrderFormPropsType) => {
                       {
                             rowsArray.fields.map((item,index) => {
                                 return (
-                                    <OrderRow register={register} item={item} index={index} key={item.id}/>
+                                    <OrderRow register={register}  index={index} key={item.id}/>
                                 )
 
 

@@ -8,9 +8,16 @@ const OrderDetail =  (props: InferGetServerSidePropsType<typeof getServerSidePro
 
     const onSubmit = async (data: Order) => {
      try {
+         const rows = data.rows.map(row => {
+                return {
+                    ...row,
+                   glass_type: row.glass_type.id,
+                }
+         })
+         const postData =  {...data,rows: rows}
       await axios.put(
           `http://127.0.0.1:8000/orders/orders/${props.order.id}/`,
-            data
+            postData
       )
 
      } catch (e) {
