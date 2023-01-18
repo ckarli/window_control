@@ -1,19 +1,18 @@
 import React from 'react';
 import OrderForm from "../components/OrderForm";
-import {Order} from "../types/Order";
 import axios from "axios";
 import {useRouter} from "next/router";
+import {postOrdersOrders} from "../types/services";
+import {Order, OrderRequest} from '../types/types';
 
 const New = () => {
     const router = useRouter();
 
-        const onSubmit = async (data: Order) => {
+    const onSubmit = async (data: Order) => {
      try {
-      await axios.post(
-          "http://127.0.0.1:8000/orders/orders/",
-            data
-      )
-        router.push('/')
+
+      await postOrdersOrders(data as unknown as OrderRequest)
+         router.push('/')
      } catch (e) {
             console.log("server error",e)
      }

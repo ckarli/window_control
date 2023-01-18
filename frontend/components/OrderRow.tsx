@@ -1,6 +1,6 @@
 import React from 'react';
 import {UseFormRegister} from "react-hook-form";
-import {Order} from "../types/Order";
+import {Order} from "../types/types";
 
 const OrderRow = ({register, index}: {
     register: UseFormRegister<Order>, index: number

@@ -1,14 +1,15 @@
 import React from 'react';
 import {useFieldArray, useForm} from "react-hook-form";
-import {Order} from "../types/Order";
 import axios from "axios";
 import OrderRow from "./OrderRow";
 import {useRouter} from "next/router";
+import {Order, } from "../types/types";
 
 type OrderFormPropsType = {
     order?: Order
     onSubmit?: (data: Order) => void
 }
+
 const OrderForm = (props:OrderFormPropsType) => {
 
 
@@ -92,6 +93,7 @@ const OrderForm = (props:OrderFormPropsType) => {
                   />
                 </div>
     <button type="button" onClick={() => rowsArray.append({
+        id:null,
         glass_type: null,
         length: null,
         quantity: null,

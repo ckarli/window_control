@@ -1,8 +1,9 @@
 import React from 'react';
-import {Order} from "../types/Order";
 import {GetServerSideProps, InferGetServerSidePropsType} from "next";
 import OrderForm from "../components/OrderForm";
 import axios from "axios";
+import {getOrdersOrdersId, putOrdersOrdersId} from "../types/services";
+import {Order} from "../types/types";
 
 const OrderDetail =  (props: InferGetServerSidePropsType<typeof getServerSideProps>) => {
 
@@ -15,10 +16,8 @@ const OrderDetail =  (props: InferGetServerSidePropsType<typeof getServerSidePro
                 }
          })
          const postData =  {...data,rows: rows}
-      await axios.put(
-          `http://127.0.0.1:8000/orders/orders/${props.order.id}/`,
-            postData
-      )
+         await putOrdersOrdersId(props.order.id,postData)
+
 
      } catch (e) {
             console.log("server error",e)
@@ -42,9 +41,9 @@ export const getServerSideProps  = async (ctx) => {
     try {
 
 
-        const data = await fetch('http://127.0.0.1:8000/orders/orders/' + id);
-        const order = await data.json() as Order;
 
+
+        const order = await getOrdersOrdersId(id)
         return {
             props: {
                 order
