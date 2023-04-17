@@ -9,18 +9,27 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-
+import os
 from pathlib import Path
+import environ
+
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Set the project base directory
 
+# Take environment variables from .env file
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-kxrgu834pf0eiw0so2n3bo5ul&%%99-5c^es=7)q2*6wi5-)3@"
+SECRET_KEY = env.str('SECRET_KEY',default="UNSAFE KEY CHANGE ME")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -81,18 +90,8 @@ WSGI_APPLICATION = "window_control.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-#postgres
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "window_control",
-        "USER": "window_control",
-        "PASSWORD": "123456",
-        "HOST": "localhost",
-        "PORT": "5432",
+DATABASES = {"default": env.db("DATABASE_URL")}
 
-    }
-}
 
 
 # Password validation
